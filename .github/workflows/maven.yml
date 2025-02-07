@@ -10,10 +10,10 @@ jobs:
     environment: prod
 
     steps:
-      - uses: actions/checkout@v4 # Ensure this is the correct version
+      - uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v2 # Confirm v2 is correct for stable JDK setup
+        uses: actions/setup-java@v2
         with:
           java-version: "17"
           distribution: "temurin"
@@ -26,6 +26,13 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: mvn clean package --file pom.xml
 
+      - name: Install Render CLI
+        run: |
+          npm install -g render-cli
+
+      - name: Verify Render CLI installation
+        run: render --version
+
       - name: Deploy to Render
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
@@ -33,5 +40,4 @@ jobs:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          curl -fsSL https://render.com/install.sh | sh
           render deploy --service meetX --branch master
