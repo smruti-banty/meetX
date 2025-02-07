@@ -38,7 +38,7 @@ jobs:
       # Step 6: Deploy to Render using REST API
       - name: Deploy to Render using REST API
         run: |
-          curl -X POST https://api.render.com/v1/services/YOUR_SERVICE_ID/deploys \
+          curl -X POST https://api.render.com/v1/services/srv-cuitkvd2ng1s73f6strg/deploys \
             -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
             -H "Content-Type: application/json" \
             -d '{
