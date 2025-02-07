@@ -40,4 +40,5 @@ jobs:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
+          # This assumes the Render service is set up correctly as a Java service
           render deploy --service meetX --branch master
