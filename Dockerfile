@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the local code to the container
 COPY . /app
 
+# Give execute permission to the mvnw script
+RUN chmod +x mvnw
+
 # Build the Spring Boot app
 RUN ./mvnw clean package -DskipTests
 
