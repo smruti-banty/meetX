@@ -10,9 +10,11 @@ jobs:
     environment: prod
 
     steps:
+      # Step 1: Checkout the code from the repository
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # Step 2: Set up JDK 17 for Maven build
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
@@ -20,29 +22,36 @@ jobs:
           distribution: "temurin"
           cache: maven
 
+      # Step 3: Build the Spring Boot app using Maven
       - name: Build with Maven
         env:
-          DB_HOST: ${{ secrets.DB_HOST }}
+          # Optional, only needed if your app depends on DB-related secrets for build
+          DB_HOST: ${{ secrets.DB_HOST }} # If you are using DB secrets during build
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: mvn clean package --file pom.xml
 
+      # Step 4: Set up Node.js 16 for the Render CLI
       - name: Set up Node.js 16
         uses: actions/setup-node@v3
         with:
           node-version: "16"
 
+      # Step 5: Install the Render CLI
       - name: Install Render CLI
         run: npm install -g render-cli
 
+      # Step 6: Verify the installation of Render CLI
       - name: Verify Render CLI installation
         run: render --version
 
+      # Step 7: Deploy to Render without Docker (Java environment)
       - name: Deploy to Render
         env:
+          # Optional, add DB secrets if needed for runtime
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_HOST: ${{ secrets.DB_HOST }} # Only needed if DB configuration is relevant at runtime
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          render deploy --service meetX --docker --branch master --env prod --engine docker
+          render deploy --service meetX --branch master --env prod
