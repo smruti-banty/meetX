@@ -2,7 +2,8 @@ name: Deploy Java Spring Boot App to Render
 
 on:
   push:
-    branches: ["master"]
+    branches:
+      - master
 
 jobs:
   deploy:
@@ -14,7 +15,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Step 2: Set up JDK 17 for Maven build
+      # Step 2: Set up JDK 17
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
@@ -22,36 +23,44 @@ jobs:
           distribution: "temurin"
           cache: maven
 
-      # Step 3: Build the Spring Boot app using Maven
+      # Step 3: Build with Maven
       - name: Build with Maven
         env:
-          # Optional, only needed if your app depends on DB-related secrets for build
-          DB_HOST: ${{ secrets.DB_HOST }} # If you are using DB secrets during build
+          DB_HOST: ${{ secrets.DB_HOST }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: mvn clean package --file pom.xml
+        run: mvn clean package -DskipTests --file pom.xml
 
-      # Step 4: Set up Node.js 16 for the Render CLI
-      - name: Set up Node.js 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16"
+      # Step 4: Set up Docker (for building images)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      # Step 5: Install the Render CLI
+      # Step 5: Build Docker image (if Docker is used for deployment)
+      - name: Build Docker image
+        run: |
+          docker build -t my-app .
+
+      # Step 6: Log in to Docker Hub and push the Docker image
+      - name: Log in to Docker Hub and push image
+        run: |
+          docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+          docker tag my-app ${{ secrets.DOCKER_USERNAME }}/meetx:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/meetx:latest
+
+      # Step 7: Install Render CLI
       - name: Install Render CLI
         run: npm install -g render-cli
 
-      # Step 6: Verify the installation of Render CLI
+      # Step 8: Verify Render CLI installation
       - name: Verify Render CLI installation
         run: render --version
 
-      # Step 7: Deploy to Render without Docker (Java environment)
+      # Step 9: Deploy to Render using Docker
       - name: Deploy to Render
         env:
-          # Optional, add DB secrets if needed for runtime
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          DB_HOST: ${{ secrets.DB_HOST }} # Only needed if DB configuration is relevant at runtime
+          DB_HOST: ${{ secrets.DB_HOST }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          render deploy --service meetX --branch master --env prod
+          render deploy --service meetX --docker --branch master --env prod --debug --engine docker
