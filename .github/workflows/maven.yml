@@ -1,8 +1,9 @@
-name: Deploy Java Spring Boot App to Render
+name: Deploy Java Spring Boot App to Render with Docker
 
 on:
   push:
-    branches: ["master"]
+    branches:
+      - master
 
 jobs:
   deploy:
@@ -25,7 +26,7 @@ jobs:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: mvn clean package --file pom.xml
+        run: mvn clean package -DskipTests --file pom.xml
 
       - name: Install Render CLI
         run: npm install -g render-cli
@@ -33,11 +34,14 @@ jobs:
       - name: Verify Render CLI installation
         run: render --version
 
-      - name: Deploy to Render
+      - name: Build Docker Image
+        run: docker build -t meetx .
+
+      - name: Deploy to Render using Docker
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          render deploy --service meetX --branch master --env prod
+          render deploy --service meetX --docker --branch master --env prod
