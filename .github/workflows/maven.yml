@@ -34,4 +34,4 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
           curl -fsSL https://render.com/install.sh | sh
-          render deploy --service meetX --branch main
+          render deploy --service meetX --branch master
