@@ -2,10 +2,10 @@ services:
   - type: web
     name: spring-boot-app
     env: java
-    buildCommand: "./mvnw clean install" # Use Maven Wrapper (or just mvn if not using the wrapper)
-    startCommand: "java -jar target/meetX.jar" # Adjust the jar filename
+    buildCommand: "./mvnw clean install" # Use Maven Wrapper or mvn if not using wrapper
+    startCommand: "java -jar target/meetX.jar" # Update with correct JAR filename
     plan: free
-    branch: master # Use master if you're deploying from master branch
+    branch: master # Ensure it's pointing to the correct branch (master)
     envVars:
       - key: DB_HOST
         value: ${DB_HOST}
