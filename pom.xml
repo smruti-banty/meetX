@@ -14,19 +14,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>meet-x</name>
 	<description>MeetX project for Event management</description>
-	<url />
-	<licenses>
-		<license />
-	</licenses>
-	<developers>
-		<developer />
-	</developers>
-	<scm>
-		<connection />
-		<developerConnection />
-		<tag />
-		<url />
-	</scm>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -89,7 +76,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>meetX</finalName>
+					<finalName>meet-x</finalName> <!-- This sets the final JAR name to 'meet-x' -->
+					<mainClass>edu.rims.MeetXApplication</mainClass> <!-- Specify the main class of
+					your app -->
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

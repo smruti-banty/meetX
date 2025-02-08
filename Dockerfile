@@ -10,10 +10,11 @@ COPY . /app
 # Give execute permission to the mvnw script
 RUN chmod +x mvnw
 
-# Build the Spring Boot app
+# Build the Spring Boot app using Maven Wrapper, skipping tests
 RUN ./mvnw clean package -DskipTests
 
-# Run the Spring Boot app
+# Specify the path to the built executable JAR file
+# Ensure the JAR is in the target folder, as expected for a Spring Boot application
 ENTRYPOINT ["java", "-jar", "/app/target/meet-x-0.0.1-SNAPSHOT.jar"]
 
 # Expose the port the app will run on
