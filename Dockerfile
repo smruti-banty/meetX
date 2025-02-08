@@ -1,21 +1,36 @@
-# Use an official OpenJDK runtime as a parent image
+# 1️⃣ Use an official OpenJDK image for building the JAR
 FROM openjdk:17-jdk-slim as build
 
 # Set the working directory
 WORKDIR /app
 
-# Copy the local code to the container
-COPY . /app
+# Copy the Maven wrapper and POM file first for better caching
+COPY mvnw pom.xml ./
+COPY .mvn .mvn
 
-# Give execute permission to the mvnw script
+# Give execute permission to the Maven Wrapper
 RUN chmod +x mvnw
 
-# Build the Spring Boot app using Maven Wrapper, skipping tests
+# Download dependencies first (this allows caching of dependencies)
+RUN ./mvnw dependency:go-offline
+
+# Copy the rest of the source code
+COPY src ./src
+
+# Build the Spring Boot app (fat JAR)
 RUN ./mvnw clean package -DskipTests
 
-# Specify the path to the built executable JAR file
-# Ensure the JAR is in the target folder, as expected for a Spring Boot application
-ENTRYPOINT ["java", "-jar", "/app/target/meet-x-0.0.1-SNAPSHOT.jar"]
+# 2️⃣ Use a smaller JDK runtime for the final image
+FROM openjdk:17-jdk-slim
 
-# Expose the port the app will run on
+# Set working directory
+WORKDIR /app
+
+# Copy the JAR from the build stage
+COPY --from=build /app/target/meet-x-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose the port Spring Boot runs on
 EXPOSE 8080
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
