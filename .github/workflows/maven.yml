@@ -37,15 +37,15 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t meetx-image:latest .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/meetx-image:latest .
 
       - name: Push Docker image to Docker Hub
-        run: docker push meetx-image:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/meetx-image:latest
 
       - name: Deploy to Render using REST API
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          RENDER_SERVICE_ID: srv-cuivq1l6l47c73al15fg
+          RENDER_SERVICE_ID: srv-cuivq1l6l47c73al15fg # Use your service ID here
         run: |
           curl -X POST https://api.render.com/v1/services/${{ env.RENDER_SERVICE_ID }}/deploys \
             -H "Authorization: Bearer ${{ env.RENDER_API_KEY }}" \

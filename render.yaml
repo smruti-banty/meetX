@@ -1,15 +1,9 @@
 services:
-  - type: web
-    name: spring-boot-app
+  - name: meetx-service
+    type: web
     env: java
-    buildCommand: "./mvnw clean install" # Use Maven Wrapper or mvn if not using wrapper
-    startCommand: "java -jar target/meetX.jar" # Update with correct JAR filename
-    plan: free
-    branch: master # Ensure it's pointing to the correct branch (master)
-    envVars:
-      - key: DB_HOST
-        value: ${DB_HOST}
-      - key: DB_USERNAME
-        value: ${DB_USERNAME}
-      - key: DB_PASSWORD
-        value: ${DB_PASSWORD}
+    plan: starter
+    buildCommand: "mvn clean install"
+    startCommand: "java -jar target/meet-x-0.0.1-SNAPSHOT.jar"
+    branches:
+      - master
