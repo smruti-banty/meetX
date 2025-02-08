@@ -4,6 +4,6 @@ services:
     env: java
     plan: starter
     buildCommand: "mvn clean install"
-    startCommand: "java -jar target/meet-x-0.0.1-SNAPSHOT.jar"
+    startCommand: "java -jar target/*.jar"
     branches:
       - master
