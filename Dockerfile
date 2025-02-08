@@ -14,7 +14,7 @@ RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 # Run the Spring Boot app
-ENTRYPOINT ["java", "-jar", "/app/target/your-app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/target/meet-x-0.0.1-SNAPSHOT.jar"]
 
 # Expose the port the app will run on
 EXPOSE 8080
