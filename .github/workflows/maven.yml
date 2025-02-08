@@ -1,4 +1,4 @@
-name: Deploy Java Spring Boot App to Render
+name: Deploy meetX Java Spring Boot App to Render
 
 on:
   push:
@@ -30,21 +30,22 @@ jobs:
       - name: List target directory contents (to verify JAR file name)
         run: ls -l target/
 
-      - name: Set up Node.js 16
-        uses: actions/setup-node@v3
+      - name: Set up Docker Hub credentials
+        uses: docker/login-action@v2
         with:
-          node-version: "16"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Install Render CLI (for debugging, optional)
-        run: npm install -g render-cli
+      - name: Build Docker image
+        run: docker build -t meetx-image:latest .
 
-      - name: Verify Render CLI installation (optional)
-        run: render --version
+      - name: Push Docker image to Docker Hub
+        run: docker push meetx-image:latest
 
       - name: Deploy to Render using REST API
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          RENDER_SERVICE_ID: srv-cuitkvd2ng1s73f6strg # Use your service ID here
+          RENDER_SERVICE_ID: srv-cuivq1l6l47c73al15fg
         run: |
           curl -X POST https://api.render.com/v1/services/${{ env.RENDER_SERVICE_ID }}/deploys \
             -H "Authorization: Bearer ${{ env.RENDER_API_KEY }}" \
