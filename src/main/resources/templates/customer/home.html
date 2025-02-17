@@ -1,11 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>meetX</title>
-  </head>
-  <body>
-    <h1>Hello customer</h1>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>meetX</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="../../static/grid.css">
+  <link rel="stylesheet" href="../../static/flex.css">
+  <link rel="stylesheet" href="../../static/base.css">
+  <link rel="stylesheet" href="../../static/utility.css">
+  <link rel="stylesheet" href="../../static/home.css">
+</head>
+
+<body>
+  <div class="header">
+    <div class="nav-div">
+      <nav class="nav d-flex-center justify-content-between w-100 p-inline">
+        <div class="logo">
+          <img src="../../static/images/logo4.png" alt="" style="width: 60px;">
+        </div>
+        <div class="nav-content">
+          <ul class="content d-flex justify-content-between">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#">Login / Register</a></li>
+          </ul>
+        </div>
+        <button type="button" id="navbar-toggler" class="navbar-toggler"><i class="fa-solid fa-bars"></i></button>
+      </nav>
+    </div>
+    <div class="hero">
+      <video src="../../static/video/hero_video.mp4" autoplay muted loop class="hero-video"></video>
+    </div>
+    <div class="overlay"></div>
+  </div>
+  <div class="container">
+    <div class="gallery" id="gallery">
+      <h2 class="heading mb-5">Gallery</h2>
+      <div class="gallery-content d-grid grid-cols-4">
+        <div class="image-div">
+          <img src="../../static/images/event1.jpg" alt="">
+        </div>
+        <div class="image-div">
+          <img src="../../static/images/event2.jpg" alt="">
+        </div class="image-div">
+        <div class="image-div">
+          <img src="../../static/images/event3.jpg" alt="">
+        </div>
+        <div class="image-div">
+          <img src="../../static/images/event4.jpg" alt="">
+        </div>
+        <div class="image-div">
+          <img src="../../static/images/event5.webp" alt="">
+        </div class="image-div">
+        <div class="image-div">
+          <img src="../../static/images/event6.webp" alt="">
+        </div>
+        <div class="image-div">
+          <img src="../../static/images/event7.webp" alt="">
+        </div>
+        <div class="image-div">
+          <img src="../../static/images/event8.webp" alt="">
+        </div>
+        <div class="image-div">
+          <img src="../../static/images/event9.webp" alt="">
+        </div>
+        <div class="image-div">
+          <img src="../../static/images/event10.webp" alt="">
+        </div>
+        <div class="image-div">
+          <img src="../../static/images/event11.webp" alt="">
+        </div>
+        <div class="image-div">
+          <img src="../../static/images/event13.webp" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="contact-us" id="contact">
+      <h2 class="heading mb-5">Contact Us</h2>
+      <div class="contact-body d-grid grid-cols-2">
+        <div class="from-div">
+          <form action="#">
+            <div>
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name">
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email">
+            </div>
+            <div>
+              <label for="description">Desctiption</label>
+              <textarea name="description" id="description"></textarea>
+            </div>
+            <div class="btn-div">
+              <input type="submit" name="submit" id="submit">
+            </div>
+          </form>
+        </div>
+        <div class="gif-div">
+          <img src="../../static/images/event14.webp" alt="">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
