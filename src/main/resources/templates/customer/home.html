@@ -36,14 +36,19 @@
     </div>
     <div class="hero">
       <video src="../../static/video/hero_video.mp4" autoplay muted loop class="hero-video"></video>
+      <div class="hero-content">
+        <h1>Plan Your Dream Event with MeetX</h1>
+        <p>We manage and organize events seamlessly for you.</p>
+        <a href="#contact" class="cta-button">Get Started</a>
+      </div>
     </div>
-    <!-- <div class="overlay"></div> -->
+    <div class="overlay"></div>
     <a href="#" class="upcomming">Upcomming Events</a>
   </div>
   <div class="container">
     <div class="gallery" id="gallery">
       <h2 class="heading mb-5">Gallery</h2>
-      <div class="gallery-content d-grid grid-cols-4">
+      <div class="gallery-content d-grid grid-cols-3">
         <div class="image-div">
           <img src="../../static/images/event1.jpg" alt="">
         </div>
@@ -82,36 +87,76 @@
           <img src="../../static/images/event13.webp" alt="">
         </div>
       </div>
-    </div>
-    <div class="contact-us" id="contact">
-      <h2 class="heading mb-5">Contact Us</h2>
-      <div class="contact-body d-grid grid-cols-2">
-        <div class="from-div">
-          <form action="#">
-            <div>
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name">
+      <div class="upcomming-event mt-5" id="upcomming-event">
+        <h2 class="heading mb-5">Upcomming Events</h2>
+        <div class="d-grid grid-cols-3">
+          <div class="card">
+            <div class="card-head image-div">
+              <img src="../../static/images/event1.jpg" alt="">
             </div>
-            <div>
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email">
+            <div class="description">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis provident ratione doloremque
+                consequatur, neque animi, repellendus esse iusto sed eum sequi, velit perferendis odit omnis.</p>
             </div>
-            <div>
-              <label for="description">Description</label>
-              <textarea name="description" id="description"></textarea>
+            <div class="card-footer">
+              <a href="#">Book now</a>
             </div>
-            <div class="btn-div">
-              <input type="submit" name="submit" id="submit">
+          </div>
+          <div class="card">
+            <div class="card-head image-div">
+              <img src="../../static/images/event1.jpg" alt="">
             </div>
-          </form>
+            <div class="description">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis provident ratione doloremque
+                consequatur, neque animi, repellendus esse iusto sed eum sequi, velit perferendis odit omnis.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#">Book now</a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head image-div">
+              <img src="../../static/images/event1.jpg" alt="">
+            </div>
+            <div class="description">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis provident ratione doloremque
+                consequatur, neque animi, repellendus esse iusto sed eum sequi, velit perferendis odit omnis.</p>
+            </div>
+            <div class="card-footer">
+              <a href="#">Book now</a>
+            </div>
+          </div>
         </div>
-        <div class="gif-div">
-          <img src="../../static/images/event14.webp" alt="">
-        </div>
+      </div>
+      <div class="contact-us" id="contact">
+        <h2 class="heading mb-5">Contact Us</h2>
+        <div class="contact-body d-grid grid-cols-2">
+          <div class="from-div">
+            <form action="#">
+              <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+              </div>
+              <div>
+                <label for="description">Description</label>
+                <textarea name="description" id="description"></textarea>
+              </div>
+              <div class="btn-div">
+                <input type="submit" name="submit" id="submit">
+              </div>
+            </form>
+          </div>
+          <div class="gif-div">
+            <img src="../../static/images/contact2.gif" alt="">
+          </div>
 
+        </div>
       </div>
     </div>
-  </div>
 </body>
 
 </html>
